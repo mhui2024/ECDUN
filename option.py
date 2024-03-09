@@ -24,7 +24,7 @@ parser.add_argument('--dir_data', type=str, default='./data/',  # 数据集文�
                     help='dataset directory')
 parser.add_argument('--dir_demo', type=str, default='../DPDNN',  # demo 图片文件夹
                     help='demo image directory')
-parser.add_argument('--data_train', type=str, default='HDT',  # 训练集名称
+parser.add_argument('--data_train', type=str, default='DIV2K',  # 训练集名称
                     help='train dataset name')
 parser.add_argument('--data_test', type=str, default='Set5',  # 测试数据集名称
                     help='test dataset name')
