@@ -119,11 +119,6 @@ class Trainer:
             timer_model.tic()  # 重启计时器
 
             self.optimizer.zero_grad()  # 清除梯度
-            # #---------------------------------------------------------
-            # 这一句就是调用模型的forward方法，之所以不显示的调用forward是因为原本的EGDUN
-            # 继承了torch.nn.Moduel类，并实现了_call_方法，这句话会自动地调用_call_方法，
-            # 也就是等价于self.model.call(lr,idx_scale)，而对应的call方法内部会自动地调用
-            # 模型的forward方法，因此不需要显示的调用forward方法
             sr = self.model(lr, idx_scale)
 
             # 计算loss
@@ -174,13 +169,9 @@ class Trainer:
         return [_prepare(_l) for _l in l]  # 递归函数
 
     def terminate(self):
-        # 如果只是测试阶段，那么对应的main.py中只需要执行terminate原本的test函数即可，
-        # 因为main.py中的while只有在terminate这个函数返回false的时候才会执行原本的while循环里的内容
         if self.args.test_only:
             self.test()
             return True
-        # 如果不是测试，就需要判断当前的训练epochs是否达到了预设的epochs，如果达到了返回true，原本的main.py中的
-        # 的模型训练不会被执行，否则继续执行while循环里的内容
         else:
             epoch = self.scheduler.last_epoch + 1
             return epoch >= self.args.epochs
