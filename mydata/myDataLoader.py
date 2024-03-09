@@ -127,16 +127,6 @@ class _MSDataLoaderIter(_DataLoaderIter):
 
 
 class MSDataLoader(DataLoader):
-    # dataset数据集对象，必须传入，表示带加载的数据集
-    # batch_size每一个min-batch得大小
-    # shuffle如果为True表示每一个epoch之前都会对数据进行洗牌
-    # num_worker指定数据加载时候使用的进程数量
-    # collate_fn定义一个函数，用于将单个样本数据进行打包组合成mini-batch，默认为default_collate即按照样本数据维度进行张量拼接
-    # pin_memory是否加载数据到GPU显存
-    # drop_last指示样本数据不能被batch_size整除的时候，是否去除最后一个小于batch_size的mini-batch，默认为false
-    # timeout指示每个数据加载器的工作时间限制，单位为秒
-    # worker_init_fn用于初始化每一个工作进程，默认为none
-    # sampler: 提供一个自定义的样本抽样器，常与 shuffle 参数一起使用。如果设置了sampler参数，则 shuffle 参数会被忽略。
     def __init__(
             self, args, dataset, batch_size=1, shuffle=False,
             sampler=None, batch_sampler=None,
@@ -153,8 +143,4 @@ class MSDataLoader(DataLoader):
 
     def __iter__(self):
         return _MSDataLoaderIter(self)
-    # 其中MSDataLoaderIter 是 MSDataLoader 对象的一个内部类，它实现了数据集的迭代器。
-    # _iter__ 函数的作用是返回一个迭代器对象，用于对数据集进行迭代，即使是在DataLoader
-    # 类中也是一个必须被实现的函数。返回一个 _MSDataLoaderIter类的实例，该类包含
-    # 了对数据集进行迭代的方法。由于 _MSDataLoaderIter 类已经实现了 __next__ 函数，
-    # 因此可以直接通过迭代器对象来获取下一个 mini-batch 数据。
+
