@@ -81,6 +81,10 @@ scikit-learn~=0.20.3
 
 ## Training
 To train base model on DIV2K, we use 3090 GPU and run for 300 epochs:
-```python
+```
 python main.py --data_train DIV2K --epochs 300 --save_results SAVE_RESULTS
+```
+If you want to train model with different scales, you can add additional parameter like (default scale is x2):
+```
+python main.py --data_train DIV2K --epochs 300 --save_results SAVE_RESULTS --scale 4
 ```
